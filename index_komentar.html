@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Komentar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Tautan CSS Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E-literasi Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Kelalola.php">Karya</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index_komentar.html">Ulasan</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h1>Daftar Komentar</h1>
+        <a href="add_komentar.html" class="btn btn-primary mb-3">Tambah Komentar</a>
+        <table class="table table-bordered" id="commentsTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Comment_ID</th>
+                    <th>Chapter_ID</th>
+                    <th>User_ID</th>
+                    <th>Isi_Komentar</th>
+                    <th>Tanggal_Komentar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Tautan JavaScript Bootstrap (Opsional, jika diperlukan) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            // Panggil data komentar dengan AJAX
+            $.ajax({
+                url: 'http://localhost/TubesPABW/get_komentar.php', // Pastikan path ini benar
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var commentsTable = $('#commentsTable tbody');
+                    commentsTable.empty();
+                    
+                    // Proses hasil panggilan AJAX dan tampilkan dalam bentuk tabel
+                    $.each(data, function(index, comment) {
+                        commentsTable.append('<tr>' +
+                            '<td>' + comment.Comment_ID + '</td>' +
+                            '<td>' + comment.Chapter_ID + '</td>' +
+                            '<td>' + comment.User_ID + '</td>' +
+                            '<td>' + comment.Isi_Komentar + '</td>' +
+                            '<td>' + comment.Tanggal_Komentar + '</td>' +
+                            '<td>' +
+                                '<a href="edit_komentar.php?Comment_ID=' + comment.Comment_ID + '" class="btn btn-primary btn-sm">Edit</a> ' +
+                                '<button onclick="deleteComment(' + comment.Comment_ID + ')" class="btn btn-danger btn-sm">Hapus</button>' +
+                            '</td>' +
+                        '</tr>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error: ' + error);
+                    alert('Gagal mengambil data komentar.');
+                }
+            });
+        });
+
+        function deleteComment(commentID) {
+            // Hapus data komentar dengan AJAX
+            $.ajax({
+                url: 'http://localhost/TubesPABW/delete_komentar.php',
+                type: 'GET',
+                data: { Comment_ID: commentID },
+                success: function(response) {
+                    alert(response);
+                    location.reload(); // Refresh halaman untuk memperbarui tabel
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error: ' + error);
+                    alert('Gagal menghapus data.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

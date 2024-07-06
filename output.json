@@ -1,0 +1,38 @@
+[
+    {
+        "User_ID": 1,
+        "Username": "Ryuki",
+        "Nama": "Muhammad Ryuu Kurniawan",
+        "Email": "ryuuryuu048@mail.com"
+    },
+    {
+        "User_ID": 2,
+        "Username": "adistichan",
+        "Nama": "Adisti Intan Aditiara",
+        "Email": "adisti16@gmail.com"
+    },
+    {
+        "User_ID": 10,
+        "Username": "nadine",
+        "Nama": "nadin",
+        "Email": "nanad@gmail.com"
+    },
+    {
+        "User_ID": 13,
+        "Username": "bodi",
+        "Nama": "bodi",
+        "Email": "bodi@gmail.com"
+    },
+    {
+        "User_ID": 15,
+        "Username": "fareh",
+        "Nama": "ok",
+        "Email": "tika@gmail.com"
+    },
+    {
+        "User_ID": 20,
+        "Username": "widiyaPra",
+        "Nama": "Tikaaa",
+        "Email": "tika@gmail.com"
+    }
+]

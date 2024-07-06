@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Komentar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Tautan CSS Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Tambah Komentar</h1>
+        <form id="commentForm">
+            <div class="form-group">
+                <label for="Chapter_ID">Chapter ID:</label>
+                <input type="text" class="form-control" id="Chapter_ID" name="Chapter_ID" required>
+            </div>
+            <div class="form-group">
+                <label for="User_ID">User ID:</label>
+                <input type="text" class="form-control" id="User_ID" name="User_ID" required>
+            </div>
+            <div class="form-group">
+                <label for="Isi_Komentar">Isi Komentar:</label>
+                <textarea class="form-control" id="Isi_Komentar" name="Isi_Komentar" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah Komentar</button>
+        </form>
+    </div>
+
+    <!-- Tautan JavaScript Bootstrap (Opsional, jika diperlukan) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#commentForm').on('submit', function(e) {
+                e.preventDefault(); // Mencegah form submit secara default
+
+                var formData = {
+                    Chapter_ID: $('#Chapter_ID').val(),
+                    User_ID: $('#User_ID').val(),
+                    Isi_Komentar: $('#Isi_Komentar').val()
+                };
+
+                $.ajax({
+                    url: 'http://localhost/TubesPABW/save_komentar.php',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        alert('Komentar berhasil ditambahkan.');
+                        window.location.href = 'index_komentar.html'; // Alihkan ke index.html
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Gagal menambahkan komentar: ' + error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
